@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<style>
+    /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 50%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h1 {
+    color: #333;
+}
+
+/* Form Styles */
+form {
+    margin: 20px 0;
+}
+
+input[type="text"], input[type="date"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 60%;
+}
+
+button {
+    padding: 8px 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* Task List */
+ol {
+    list-style: decimal inside;
+    padding: 0;
+}
+
+li {
+    background: white;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Completed Task */
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: #dc3545;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Welcome, <%= user.email %></h1>
+
+        <form action="/todo" method="POST">
+            <input type="text" name="text" placeholder="Task" required>
+            <input type="date" name="due_date" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <h2>Your Tasks</h2>
+        <ol>
+            <% tasks.forEach(task => { %>
+                <li class="<%= task.completed ? 'completed' : '' %>">
+                    <span><%= task.text %> (Due: <%= task.due_date %>)</span>
+                    <div>
+                        <% if (!task.completed) { %>
+                            <form action="/task/<%= task.id %>/complete" method="POST" style="display:inline;">
+                                <button type="submit">Mark as Completed</button>
+                            </form>
+                        <% } %>
+                        <form action="/task/<%= task.id %>/delete" method="POST" style="display:inline;">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            <% }) %>
+        </ol>
+    </div>
+</body>
+</html>
+ <!-- <form class="forms-sample p-3 rounded shadow-sm bg-light d-flex flex-wrap align-items-center gap-3" action="/todoadd" method="POST">
+                      <div class="w-100">
+                        <h5 class="text-primary mb-3">Add New Task</h5>
+                      </div>
+                      <div class="form-group mb-0">
+                        <input type="text" name="text" class="form-control border-primary" id="task" placeholder="Enter task" required>
+                      </div>
+                      <div class="form-group mb-0">
+                        <input type="date" name="due_date" class="form-control border-primary" id="date" required>
+                      </div>
+                      <button type="submit" class="btn btn-primary px-3">Submit</button>
+                    </form> -->
+  <!-- Flash Messages -->
+                <!-- <% if (messages.success && messages.success.length > 0) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= messages.success[0] %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+                
+                <% if (messages.error && messages.error.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= messages.error[0] %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+                 -->

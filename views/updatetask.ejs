@@ -1,0 +1,139 @@
+<head>
+    <%- include('./layouts/top-header') %>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <style>
+      .nav-profile-name {
+        font-size: 1rem;
+        font-weight: 500;
+        margin-left: 5px;
+      }
+  
+      .forms-sample {
+        padding: 10px;
+        border-radius: 5px;
+        background: #f8f9fa;
+      }
+  
+      .table-bordered th, .table-bordered td {
+        text-align: center;
+        vertical-align: middle;
+      }
+  
+      .btn {
+        padding: 8px 12px;
+        font-size: 18px;
+      }
+  
+      .btn-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+  
+      .form-container {
+        background: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      .message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: bold;
+      }
+  
+      .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+      .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid d-flex justify-content-between">
+           <span class="font-weight-bold text-primary" style="font-size: 1.5rem;">🚀 Task Management System</span>
+               <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-expanded="false">
+              <i class="typcn typcn-user-outline"></i> <span class="nav-profile-name">Shalini</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container-fluid page-body-wrapper mt-4 pt-2">
+        <%- include('./layouts/sidebar') %>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+             
+
+                <% if (typeof message !== "undefined" && message) { %>
+                    <div class="message 
+                        <% if (typeof message === 'string' && message.startsWith('Failed')) { %>error<% } else { %>success<% } %>" 
+                        id="flashMessage">
+                        <%= message.text || message %>
+                    </div>
+                    
+                    <script>
+                        setTimeout(function() {
+                            var flashMessage = document.getElementById("flashMessage");
+                            if (flashMessage) {
+                                flashMessage.style.display = "none";
+                            }
+                        }, 10000); // 10 seconds
+                    </script>
+                <% } %>
+                
+                <div class="row justify-content-center">
+                  <div class="col-lg-10">
+                    <div class="form-container">
+                      <h4 class="text-center">Edit Task</h4>
+                      <div class="row">
+                        <form class="forms-sample p-2 d-flex align-items-center" action="/todoadd" method="POST">
+                          <div class="col-md-8">
+                            <input type="text" name="text" class="form-control border-primary" id="task" placeholder="Enter task" required>
+                          </div>
+                          <div class="col-md-4 text-center">
+                            <button type="submit" class="btn btn-primary px-4">Update</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              
+              
+            
+          </div>
+
+          <footer class="footer mt-4">
+            <div class="text-center py-2">
+              <span>© 2024 Task Management System</span>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../js/off-canvas.js"></script>
+    <script src="../../js/hoverable-collapse.js"></script>
+    <script src="../../js/template.js"></script>
+    <script src="../../js/settings.js"></script>
+    <script src="../../js/todolist.js"></script>
+  </body>
+</html>
+
+
+
+
